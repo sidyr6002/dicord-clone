@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/theme-provider";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "@/app/api/uploadthing/core";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -21,13 +24,14 @@ export default function RootLayout({
   return (
       <ClerkProvider>
           <html lang="en">
-              <body className={cn(inter.className, "bg-stone-50 dark:bg-stone-900/85")}>
+              <body className={cn(inter.className, "bg-stone-50 dark:bg-stone-900/85 max-h-screen max-w-screen")}>
                   <ThemeProvider
                       attribute="class"
                       defaultTheme="dark"
                       enableSystem
                       disableTransitionOnChange
                   >
+                      <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
                       {children}
                   </ThemeProvider>
               </body>
