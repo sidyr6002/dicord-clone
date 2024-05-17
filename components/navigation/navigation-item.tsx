@@ -15,7 +15,7 @@ const NavigationItem = ({ server }: NavigationItemProps) => {
     // console.log(params);
     
     return (
-        <div className="w-full">
+        <div className="w-full mb-3">
             <div className="w-full flex items-center justify-between">
                 <ActionTooltip label={server.name} side="right" align="center">
                     <button className="group w-full flex justify-center items-center"
@@ -24,8 +24,8 @@ const NavigationItem = ({ server }: NavigationItemProps) => {
                         <div
                             className={cn(
                                 "absolute left-0 w-[4px] rounded-r-full bg-stone-950 dark:bg-stone-100 transition-all ease-in duration-150",
-                                params.serverId === server.id ? "bg-blue-600 dark:bg-blue-600 h-[36px]" : "h-[20px]",
-                                params.serverId !== server.id && "group-hover:h-[28px]"
+                                params.serverId === server.id ? "bg-blue-600 dark:bg-blue-600 h-[36px]" : "h-[18px]",
+                                params.serverId !== server.id && "group-hover:h-[27px]"
                             )}
                         />
                         <Image

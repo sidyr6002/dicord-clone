@@ -29,11 +29,8 @@ import FileUploader from "../file-uploader";
 import { saveServerData } from "@/app/actions/save-server-data";
 import { useRouter } from "next/navigation";
 
-interface InitialModalProps {
-    openDialog: boolean;
-}
 
-const InitialModal = ({ openDialog }: InitialModalProps) => {
+const InitialServerModal = () => {
     const router = useRouter();
     const [open, setOpen] = React.useState(false);
     const form = useForm<z.infer<typeof formSchema>>({
@@ -45,7 +42,7 @@ const InitialModal = ({ openDialog }: InitialModalProps) => {
     });
 
     useEffect(() => {
-        setOpen(openDialog);
+        setOpen(true);
     });
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -135,4 +132,4 @@ const InitialModal = ({ openDialog }: InitialModalProps) => {
     );
 };
 
-export default InitialModal;
+export default InitialServerModal;

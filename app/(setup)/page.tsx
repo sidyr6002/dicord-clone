@@ -1,7 +1,8 @@
-import { initializeUserProfile } from "@/lib/initial-profile";
-import { redirect } from "next/navigation";
 import prisma from "@/lib/db";
-import InitialModal from "@/components/modal/initial-modal";
+import { redirect } from "next/navigation";
+
+import initializeUserProfile from "@/lib/initial-profile";
+import InitialServerModal from "@/components/modal/initial-server-modal";
 
 const SetupPage = async () => {
     const userProfile = await initializeUserProfile();
@@ -10,17 +11,17 @@ const SetupPage = async () => {
         where: {
             members: {
                 some: {
-                    profileId: userProfile.id
-                }
-            }
-        }
-    })
+                    profileId: userProfile.id,
+                },
+            },
+        },
+    });
 
     if (server) {
         redirect(`/servers/${server.id}`);
     }
 
-    return <InitialModal openDialog={true}/>;
+    return <InitialServerModal />;
 };
 
 export default SetupPage;

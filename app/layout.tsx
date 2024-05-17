@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import ServerModalProvider from "@/components/providers/server-modal-provider";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -30,7 +31,8 @@ export default function RootLayout({
                       defaultTheme="dark"
                       enableSystem
                       disableTransitionOnChange
-                  >
+                  > 
+                      <ServerModalProvider />
                       <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
                       {children}
                   </ThemeProvider>

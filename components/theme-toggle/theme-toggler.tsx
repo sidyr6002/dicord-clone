@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { ActionTooltip } from "../action-tooltip"
 
-const ModeToggle = () => {
+const ThemeToggler = () => {
   const { setTheme } = useTheme()
 
   return (
@@ -44,4 +44,4 @@ const ModeToggle = () => {
   );
 }
 
-export default ModeToggle;
+export default ThemeToggler;

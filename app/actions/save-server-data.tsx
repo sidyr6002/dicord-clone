@@ -30,7 +30,7 @@ export async function saveServerData(inputValues: z.infer<typeof formSchema>) {
             }
         })
 
-        if (serverExists) {
+        if (serverExists?.name.toLowerCase() === serverData.serverName.toLowerCase()) {
             throw new Error("Server already exists");
         }
 
