@@ -35,8 +35,8 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
         }
     })
 
-    console.log("User", user);
-    console.log("ServerData", serverData);
+    // console.log("User", user);
+    // console.log("ServerData", serverData);
 
     const textChannels = serverData?.channels.filter((channel) => {
         return channel.type === ChannelType.TEXT

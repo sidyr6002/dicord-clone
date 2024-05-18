@@ -55,11 +55,11 @@ export async function saveServerData(inputValues: z.infer<typeof formSchema>) {
             },
         });
 
-        console.log(server);
+        //console.log("Created new Server:", server);
 
         return { data: "Server created successfully" };
     } catch (error: any) {
-        console.log("[SERVER_DATA_ACTION]", error);
+        console.log("[SAVE_SERVER_DATA_ACTION]", error);
         return { error: error.message };
     }
 }

@@ -45,16 +45,20 @@ const CreateServerModal = () => {
     });
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        const res = await saveServerData(values);
-        if (res.error) {
-            console.error(res.error);
-            return;
+        try {
+            const res = await saveServerData(values);
+            if (res.error) {
+                console.error(res.error);
+                return;
+            }
+    
+            console.log(res.data);
+            form.reset();
+            router.refresh();
+            onClose();
+        } catch (error) {
+            console.error("[CreateServerModal]", error);
         }
-
-        console.log(res.data);
-        form.reset();
-        router.refresh();
-        onClose();
     };
 
     const handleClose = () => {
@@ -109,7 +113,7 @@ const CreateServerModal = () => {
                                     <FormControl>
                                         <Input
                                             placeholder="Enter the name of your server"
-                                            className="h-7 sm:h-9 bg-stone-500/90 text-stone-100 border-none text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm placeholder:text-stone-200/80 focus-visible:ring-blue-600/60 focus-visible:ring-offset-0 focus:bg-stone-800 autofill:bg-stone-800 transition-all shadow-inner shadow-stone-500/55"
+                                            className="h-7 sm:h-9 bg-neutral-500/90 text-stone-100 border-none text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm placeholder:text-stone-200/80 focus-visible:ring-blue-600/60 focus-visible:ring-offset-0 focus:bg-neutral-800 autofill:bg-stone-800 transition-all shadow-inner shadow-stone-500/55"
                                             {...field}
                                         />
                                     </FormControl>

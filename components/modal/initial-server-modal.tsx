@@ -46,17 +46,21 @@ const InitialServerModal = () => {
     });
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        const res = await saveServerData(values);
-        if (res.error) {
-            console.error(res.error);
-            return;
+        try {
+            const res = await saveServerData(values);
+            if (res.error) {
+                console.error(res.error);
+                return;
+            }
+    
+            console.log(res.data);
+            setOpen(false);
+            form.reset();
+            router.refresh();
+            window.location.reload();
+        } catch (error) {
+            console.error("[InitialServerModal]", error);
         }
-
-        console.log(res.data);
-        setOpen(false);
-        form.reset();
-        router.refresh();
-        window.location.reload();
     };
 
     return (
