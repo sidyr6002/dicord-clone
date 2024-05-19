@@ -51,7 +51,7 @@ const ServerHeader = ({ server, role }: ServerHeaderProps) => {
                     </DropdownMenuItem>
                 )}
                 {isAdmin && (
-                    <DropdownMenuItem 
+                    <DropdownMenuItem
                         onClick={() => onOpen("editServer", { server })}
                         className="text-sm px-2 py-1"
                     >
@@ -60,7 +60,10 @@ const ServerHeader = ({ server, role }: ServerHeaderProps) => {
                     </DropdownMenuItem>
                 )}
                 {isAdmin && (
-                    <DropdownMenuItem className="text-sm px-2 py-1">
+                    <DropdownMenuItem
+                        onClick={() => onOpen("manageMembers", { server })}
+                        className="text-sm px-2 py-1"
+                    >
                         Manage Members
                         <Users className="w-4 h-4 ml-auto" />
                     </DropdownMenuItem>
