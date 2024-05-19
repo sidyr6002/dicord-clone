@@ -67,6 +67,7 @@ const InviteModal = () => {
                             readOnly
                             className="bg-neutral-400/60 text-stone-950 border-none focus-visible:ring-0 focus-visible:ring-offset-0"
                             value={inviteURL}
+                            autoFocus={false}
                         />
                         <Button
                             size="icon"
