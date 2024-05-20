@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/dialog";
 
 import FileUploader from "../file-uploader";
-import { saveServerData } from "@/app/actions/save-server-data";
+import { saveServerData } from "@/app/actions/server/save-server-data";
 import useSeverStore from "@/hooks/use-server-store";
 
 const CreateServerModal = () => {
@@ -70,8 +70,8 @@ const CreateServerModal = () => {
         <Dialog open={isModalOpen} onOpenChange={handleClose}>
             <DialogContent className="bg-stone-100 text-stone-900 ">
                 <DialogHeader>
-                    <DialogTitle className="text-center text-xl sm:text-2xl text-blue-600">
-                        Customize your server
+                    <DialogTitle className="text-center text-xl capitalize sm:text-2xl text-blue-600">
+                        Create server
                     </DialogTitle>
                     <DialogDescription className="text-center text-xs sm:text-sm text-stone-700/80">
                         Give your server personality with a name and an image.
@@ -113,7 +113,7 @@ const CreateServerModal = () => {
                                     <FormControl>
                                         <Input
                                             placeholder="Enter the name of your server"
-                                            className="h-7 sm:h-9 bg-neutral-500/90 text-stone-100 border-none text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm placeholder:text-stone-200/80 focus-visible:ring-blue-600/60 focus-visible:ring-offset-0 focus:bg-neutral-800 autofill:bg-stone-800 transition-all shadow-inner shadow-stone-500/55"
+                                            className="h-8 sm:h-9 bg-neutral-500/40 text-stone-800 focus-visible:text-stone-100 border-none text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm placeholder:text-stone-600 focus-visible:placeholder:text-stone-400/80 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-neutral-800 autofill:bg-stone-800 transition-all duration-150 ease-in shadow-inner shadow-stone-600/55"
                                             {...field}
                                         />
                                     </FormControl>
@@ -125,9 +125,9 @@ const CreateServerModal = () => {
                             <Button
                                 size="sm"
                                 type="submit"
-                                className="h-7 sm:h-9 bg-blue-600 text-stone-50 text-[10px] sm:text-xs hover:bg-blue-600/90"
+                                className="h-8 sm:h-9 bg-blue-600 text-stone-50 text-[10px] sm:text-xs hover:bg-blue-600/90"
                             >
-                                Save & Next
+                                Create
                             </Button>
                         </DialogFooter>
                     </form>

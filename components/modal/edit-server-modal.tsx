@@ -29,7 +29,7 @@ import {
 
 import FileUploader from "../file-uploader";
 import useSeverStore from "@/hooks/use-server-store";
-import { editServerData } from "@/app/actions/edit-server-data";
+import { editServerData } from "@/app/actions/server/edit-server-data";
 
 const EditServerModal = () => {
     const { type, data, isOpen, onClose } = useSeverStore();
@@ -81,20 +81,19 @@ const EditServerModal = () => {
 
     return (
         <Dialog open={isModalOpen} onOpenChange={handleClose}>
-            <DialogContent className="bg-stone-100 text-stone-900 ">
-                <DialogHeader>
+            <DialogContent className="bg-stone-100 text-stone-900 p-0">
+                <DialogHeader className="mt-6">
                     <DialogTitle className="text-center text-xl sm:text-2xl text-blue-600">
-                        Customize your server
+                        Change Server Settings
                     </DialogTitle>
                     <DialogDescription className="text-center text-xs sm:text-sm text-stone-700/80">
-                        Give your server personality with a name and an image.
-                        You can always change these settings later.
+                        If you do not like how your server looks, you can change it
                     </DialogDescription>
                 </DialogHeader>
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}
-                        className="space-y-3"
+                        className="space-y-2"
                     >
                         <FormField
                             control={form.control}
@@ -119,14 +118,14 @@ const EditServerModal = () => {
                             control={form.control}
                             name="serverName"
                             render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel className="sr-only">
-                                        Name
+                                <FormItem className="space-y-1 mx-6">
+                                    <FormLabel className="text-xs uppercase font-semibold text-blue-600">
+                                        Server Name
                                     </FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder="Enter the name of your server"
-                                            className="h-7 sm:h-9 bg-neutral-500 text-stone-100 border-none text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm placeholder:text-stone-200/80 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-neutral-800 autofill:bg-stone-800 transition-all shadow-inner shadow-stone-500/55"
+                                            className="h-8 sm:h-9 bg-neutral-500/40 text-stone-800 focus-visible:text-stone-100 border-none text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm placeholder:text-stone-600 focus-visible:placeholder:text-stone-400/80 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-neutral-800 autofill:bg-stone-800 transition-all shadow-inner shadow-stone-600/55"
                                             autoComplete="off"
                                             autoFocus={false}
                                             {...field}
@@ -136,13 +135,13 @@ const EditServerModal = () => {
                                 </FormItem>
                             )}
                         />
-                        <DialogFooter className="">
+                        <DialogFooter style={{ marginTop: '24px' }} className="bg-zinc-200 rounded-b-2xl ">
                             <Button
                                 size="sm"
                                 type="submit"
-                                className="h-7 sm:h-9 bg-blue-600 text-stone-50 text-[10px] sm:text-xs hover:bg-blue-600/90"
+                                className="h-8 sm:h-9 mx-6 my-3 bg-blue-600 text-stone-50 text-[10px] sm:text-xs hover:bg-blue-600/90"
                             >
-                                Save & Next
+                                Save Changes
                             </Button>
                         </DialogFooter>
                     </form>

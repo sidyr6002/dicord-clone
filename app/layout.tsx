@@ -5,9 +5,14 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
-import "./globals.css";
+import { ToastContainer } from "react-toastify";
 import { cn } from "@/lib/utils";
+
 import ServerModalProvider from "@/components/providers/server-modal-provider";
+
+import "./globals.css";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -33,6 +38,7 @@ export default function RootLayout({
                       disableTransitionOnChange
                   > 
                       <ServerModalProvider />
+                      <ToastContainer/>
                       <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
                       {children}
                   </ThemeProvider>

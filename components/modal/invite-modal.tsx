@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import useOrigin from "@/hooks/use-origin";
 import useSeverStore from "@/hooks/use-server-store";
-import { generateNewInvitelink } from "@/app/actions/genereate-new-invitelink";
+import { generateNewInvitelink } from "@/app/actions/invite/genereate-new-invitelink";
 
 import {
     Dialog,
@@ -65,7 +65,7 @@ const InviteModal = () => {
                     <div className="mt-2 flex">
                         <Input
                             readOnly
-                            className="bg-neutral-400/60 text-stone-950 border-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                            className="bg-neutral-500/40 text-stone-950 border-none shadow-inner shadow-stone-600/60 focus-visible:ring-0 focus-visible:ring-offset-0"
                             value={inviteURL}
                             autoFocus={false}
                         />
