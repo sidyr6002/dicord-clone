@@ -79,13 +79,19 @@ const ServerHeader = ({ server, role }: ServerHeaderProps) => {
                 )}
                 {isModerator && <DropdownMenuSeparator />}
                 {isAdmin && (
-                    <DropdownMenuItem className="text-sm text-rose-600 px-2 py-1">
+                    <DropdownMenuItem 
+                        onClick={() => onOpen("deleteServer", { server })}
+                        className="text-sm text-rose-600 px-2 py-1"
+                    >
                         Delete Channel
                         <Trash2 className="w-4 h-4 ml-auto" />
                     </DropdownMenuItem>
                 )}
                 {!isAdmin && (
-                    <DropdownMenuItem className="text-sm px-2 py-1">
+                    <DropdownMenuItem 
+                        onClick={() => onOpen("leaveServer", { server })}
+                        className="text-sm px-2 py-1"
+                    >
                         Leave Channel
                         <ArrowRight className="w-4 h-4 ml-auto" />
                     </DropdownMenuItem>

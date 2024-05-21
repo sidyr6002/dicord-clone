@@ -2,22 +2,31 @@
 import { v4 as uuidv4 } from "uuid";
 import { getCurrentUser } from "@/lib/current-user";
 import prisma from "@/lib/db";
+import { MemberRole } from "@prisma/client";
 
 export async function generateNewInvitelink(serverId: string | undefined) {
     try {
-        if (!serverId) {
-            throw new Error("Server not found");
-        }
+        const currentUser = await getCurrentUser();
 
-        const user = await getCurrentUser();
-        if (!user) {
+        if (!currentUser) {
             throw new Error("User not found");
         }
 
+        if (!serverId) {
+            throw new Error("Server not found");
+        }
+        
         const server = await prisma.server.update({
             where: {
                 id: serverId,
-                profileId: user.id,
+                members: {
+                    some: {
+                        profileId: currentUser.id,
+                        role: {
+                            in: [MemberRole.ADMIN, MemberRole.MODERATOR],
+                        }
+                    }
+                }
             },
             data: {
                 inviteCode: uuidv4(),

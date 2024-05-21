@@ -115,7 +115,7 @@ const CreateChannelModal = () => {
                                         <Input
                                             placeholder="Enter Channel Name"
                                             autoComplete="off"
-                                            className="h-8 sm:h-9 bg-neutral-300 text-stone-800 border-none text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm placeholder:text-stone-600 focu:ring-none focus-visible:ring-0 focus-visible:ring-offset-0 shadow-inner shadow-stone-600/55"
+                                            className="h-8 sm:h-9 bg-stone-300 text-stone-800 border-none text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm placeholder:text-stone-700/80 focu:ring-none focus-visible:ring-0 focus-visible:ring-offset-0 shadow-inner shadow-stone-700/55"
                                             {...field}
                                         />
                                     </FormControl>
@@ -133,10 +133,10 @@ const CreateChannelModal = () => {
                                     </FormLabel>
                                     <FormControl>
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                            <SelectTrigger className="h-8 sm:h-9 bg-neutral-300 text-stone-900 shadow-sm shadow-stone-800/60 border-none focus:ring-0 focus:ring-offset-0">
+                                            <SelectTrigger className="h-8 sm:h-9 bg-stone-300 text-stone-950 shadow-inner shadow-stone-700/55 border-none focus:ring-0 focus:ring-offset-0">
                                                 <SelectValue placeholder="Select Channel Type" />
                                             </SelectTrigger>
-                                            <SelectContent className="bg-neutral-900 border-none">
+                                            <SelectContent className="bg-neutral-700 border-none">
                                                 <SelectGroup>
                                                     <SelectItem value={ChannelType.TEXT} className="focus:bg-neutral-500/50">Text</SelectItem>
                                                     <SelectItem value={ChannelType.AUDIO} className="focus:bg-neutral-500/50">Audio</SelectItem>
@@ -150,7 +150,7 @@ const CreateChannelModal = () => {
                             )}
                         />
 
-                        <DialogFooter style={{ marginTop: "30px"}} className="bg-zinc-200 rounded-b-2xl">
+                        <DialogFooter style={{ marginTop: "30px"}} className="bg-zinc-200/90 rounded-b-2xl">
                             <Button
                                 size="sm"
                                 type="submit"

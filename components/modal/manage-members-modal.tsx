@@ -97,11 +97,7 @@ const ManageMembersModal = () => {
                             className="flex flex-row space-x-2 items-center py-1"
                         >
                             <UserAvatar
-                                src={
-                                    member.profile?.imageURL
-                                        ? member.profile?.imageURL
-                                        : ""
-                                }
+                                src={ member.profile?.imageURL ? member.profile?.imageURL : "" }
                             />
                             <div className="flex flex-col max-w-60 w-full">
                                 <p className="text-sm font-semibold truncate text-stone-800">
