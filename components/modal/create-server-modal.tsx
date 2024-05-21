@@ -113,7 +113,8 @@ const CreateServerModal = () => {
                                     <FormControl>
                                         <Input
                                             placeholder="Enter the name of your server"
-                                            className="h-8 sm:h-9 bg-neutral-500/40 text-stone-800 focus-visible:text-stone-100 border-none text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm placeholder:text-stone-600 focus-visible:placeholder:text-stone-400/80 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-neutral-800 autofill:bg-stone-800 transition-all duration-150 ease-in shadow-inner shadow-stone-600/55"
+                                            autoComplete="off"
+                                            className="h-8 sm:h-9 bg-neutral-500/40 text-stone-800 focus-visible:text-stone-100 border-none text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm placeholder:text-stone-600 focus-visible:placeholder:text-stone-400/80 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-neutral-800 transition-all duration-150 ease-in shadow-inner shadow-stone-600/55"
                                             {...field}
                                         />
                                     </FormControl>

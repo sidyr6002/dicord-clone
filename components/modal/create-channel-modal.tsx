@@ -115,7 +115,8 @@ const CreateChannelModal = () => {
                                         <Input
                                             placeholder="Enter Channel Name"
                                             autoComplete="off"
-                                            className="h-8 sm:h-9 bg-stone-300 text-stone-800 border-none text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm placeholder:text-stone-700/80 focu:ring-none focus-visible:ring-0 focus-visible:ring-offset-0 shadow-inner shadow-stone-700/55"
+                                            autoFocus={false}
+                                            className="h-8 sm:h-9 bg-neutral-500/40 text-stone-800 focus-visible:text-stone-100 border-none text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm placeholder:text-stone-600 focus-visible:placeholder:text-stone-400/80 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-neutral-800 transition-all duration-150 shadow-inner shadow-stone-600/55"
                                             {...field}
                                         />
                                     </FormControl>
@@ -133,14 +134,14 @@ const CreateChannelModal = () => {
                                     </FormLabel>
                                     <FormControl>
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                            <SelectTrigger className="h-8 sm:h-9 bg-stone-300 text-stone-950 shadow-inner shadow-stone-700/55 border-none focus:ring-0 focus:ring-offset-0">
+                                            <SelectTrigger className="h-8 sm:h-9 bg-neutral-500/40 text-stone-950 shadow-inner shadow-stone-700/55 border-none focus:ring-0 focus:ring-offset-0">
                                                 <SelectValue placeholder="Select Channel Type" />
                                             </SelectTrigger>
-                                            <SelectContent className="bg-neutral-700 border-none">
+                                            <SelectContent className="bg-neutral-300 text-stone-900 border-nonec ">
                                                 <SelectGroup>
-                                                    <SelectItem value={ChannelType.TEXT} className="focus:bg-neutral-500/50">Text</SelectItem>
-                                                    <SelectItem value={ChannelType.AUDIO} className="focus:bg-neutral-500/50">Audio</SelectItem>
-                                                    <SelectItem value={ChannelType.VIDEO} className="focus:bg-neutral-500/50">Video</SelectItem>
+                                                    <SelectItem value={ChannelType.TEXT} className="focus:bg-neutral-500/50 focus:text-blue-800">Text</SelectItem>
+                                                    <SelectItem value={ChannelType.AUDIO} className="focus:bg-neutral-500/50 focus:text-blue-800">Audio</SelectItem>
+                                                    <SelectItem value={ChannelType.VIDEO} className="focus:bg-neutral-500/50 focus:text-blue-800">Video</SelectItem>
                                                 </SelectGroup>
                                             </SelectContent>
                                         </Select>
