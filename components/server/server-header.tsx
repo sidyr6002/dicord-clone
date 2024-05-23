@@ -26,6 +26,7 @@ interface ServerHeaderProps {
     server: ServerWithChannelesWithMembers;
     role?: MemberRole;
 }
+
 const ServerHeader = ({ server, role }: ServerHeaderProps) => {
     const {onOpen} = useServerStore();
 
@@ -35,9 +36,9 @@ const ServerHeader = ({ server, role }: ServerHeaderProps) => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <button className="w-full px-3 text-base font-semibold capitalize h-10 flex items-center justify-between bg-stone-300/60 dark:bg-stone-700/80 border-b-2 border-stone-300 dark:border-stone-700 shadow-md hover:bg-neutral-400/30 dark:hover:bg-zinc-700/80 transition-colors duration-150">
+                <button className="w-full px-3 text-base font-semibold capitalize h-10 flex items-center justify-between bg-blue-400 dark:bg-blue-800 border-b-2 border-stone-400/40 dark:border-stone-900/40 hover:bg-blue-600 dark:hover:bg-blue-700/80 transition-colors duration-150 ">
                     <span className="truncate">{server.name}</span>
-                    <ChevronDown className="w-4 h-4 ml-2" />
+                    <ChevronDown className="w-[18px] h-[18px] ml-2" />
                 </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-48 text-xs py-2 text-black dark:text-neutral-400 space-y-2">
