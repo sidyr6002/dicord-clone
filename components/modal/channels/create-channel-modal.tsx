@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useLayoutEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { channelFormSchema as formSchema } from "@/schema/form-schema";
 import { ChannelType } from "@prisma/client";
@@ -56,7 +56,7 @@ const CreateChannelModal = () => {
         },
     });
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if(channelType) {
             form.setValue("channelType", channelType);
         }
