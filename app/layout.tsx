@@ -13,8 +13,6 @@ import ServerModalProvider from "@/components/providers/server-modal-provider";
 import "./globals.css";
 import 'react-toastify/dist/ReactToastify.css';
 
-
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

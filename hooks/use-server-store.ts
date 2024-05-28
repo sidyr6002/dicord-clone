@@ -1,16 +1,17 @@
-import { Server } from "@prisma/client";
+import { ChannelType, Server } from "@prisma/client";
 import { create } from "zustand";
 
 export type actionType = "createServer" | "editServer" | "leaveServer" | "deleteServer" | "invitePeople" | "manageMembers" | "createChannel" ;
 
 interface ModalData {
     server?: Server
+    channelType?: ChannelType;
 }
 interface ServerStore {
     type: actionType | null;
     data: ModalData;
     isOpen: boolean;
-    onOpen: (type: actionType, data?: ModalData) => void;
+    onOpen: (type: actionType, data?: ModalData, channelType?: ChannelType) => void;
     onClose: () => void;
 }
 

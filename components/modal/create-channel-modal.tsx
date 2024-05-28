@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
-import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
+import { useParams, useRouter } from "next/navigation";
 import { channelFormSchema as formSchema } from "@/schema/form-schema";
 import { ChannelType } from "@prisma/client";
 
@@ -43,9 +43,11 @@ import { toast } from "react-toastify";
 const CreateChannelModal = () => {
     const { type, data, isOpen, onClose } = useSeverStore();
     const isModalOpen = isOpen && type === "createChannel";
-    const { server } = data;
+    const { server, channelType } = data;
     
     const router = useRouter();
+    const params = useParams();
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -53,6 +55,12 @@ const CreateChannelModal = () => {
             channelType: ChannelType.TEXT,
         },
     });
+
+    useEffect(() => {
+        if(channelType) {
+            form.setValue("channelType", channelType);
+        }
+    }, [channelType])
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
@@ -88,6 +96,10 @@ const CreateChannelModal = () => {
     const handleClose = () => {
         form.reset();
         onClose(); 
+    }
+
+    if (params.serverId !== server?.id) {
+        return null;
     }
 
     return (
@@ -134,10 +146,10 @@ const CreateChannelModal = () => {
                                     </FormLabel>
                                     <FormControl>
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                            <SelectTrigger className="h-8 sm:h-9 bg-neutral-500/40 text-stone-950 shadow-inner shadow-stone-700/55 border-none focus:ring-0 focus:ring-offset-0">
+                                            <SelectTrigger className="h-8 sm:h-9 bg-neutral-500/40 text-stone-950 shadow-inner shadow-stone-700/55 border-none focus:ring-0 focus:ring-offset-0" disabled={channelType ? true : false}>
                                                 <SelectValue placeholder="Select Channel Type" />
                                             </SelectTrigger>
-                                            <SelectContent className="bg-neutral-300 text-stone-900 border-nonec ">
+                                            <SelectContent className="bg-neutral-300 text-stone-900 border-none">
                                                 <SelectGroup>
                                                     <SelectItem value={ChannelType.TEXT} className="focus:bg-neutral-500/50 focus:text-blue-800">Text</SelectItem>
                                                     <SelectItem value={ChannelType.AUDIO} className="focus:bg-neutral-500/50 focus:text-blue-800">Audio</SelectItem>

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { ServerWithChannelesWithMembers } from "@/types";
-import { MemberRole } from "@prisma/client";
+import { ChannelType, MemberRole } from "@prisma/client";
 
 import {
     DropdownMenu,
@@ -36,12 +36,12 @@ const ServerHeader = ({ server, role }: ServerHeaderProps) => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <button className="w-full px-3 text-base font-semibold capitalize h-10 flex items-center justify-between bg-blue-400 dark:bg-blue-800 border-b-2 border-stone-400/40 dark:border-stone-900/40 hover:bg-blue-600 dark:hover:bg-blue-700/80 transition-colors duration-150 ">
+                <button className="w-full px-3 h-9 focus:outline-none text-sm font-semibold capitalize flex items-center justify-between hover:bg-neutral-400/70 hover:dark:bg-stone-800/50 shadow shadow-stone-800/15 dark:shadow-stone-950/25 transition duration-150 ease-in-out">
                     <span className="truncate">{server.name}</span>
                     <ChevronDown className="w-[18px] h-[18px] ml-2" />
                 </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-48 text-xs py-2 text-black dark:text-neutral-400 space-y-2">
+            <DropdownMenuContent className="w-52 text-xs py-2 text-black dark:text-neutral-400 space-y-2">
                 {isModerator && (
                     <DropdownMenuItem
                         onClick={() => onOpen("invitePeople", { server })}

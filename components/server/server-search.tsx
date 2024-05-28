@@ -1,10 +1,10 @@
 "use client";
 import React, { useEffect } from "react";
+import { useParams, useRouter } from "next/navigation";
 
 import { Command, Search } from "lucide-react";
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
-import { useParams, useRouter } from "next/navigation";
 
 interface ServerSearchAreaProps {
     data: {
