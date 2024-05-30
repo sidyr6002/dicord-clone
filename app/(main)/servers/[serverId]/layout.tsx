@@ -7,13 +7,20 @@ import { redirect } from "next/navigation";
 
 import ServerSideBar from "@/components/server/server-sidebar";
 
-const ServerIdLayout = async ({
-    children,
-    params,
-}: {
+interface ServerIdPageParams {
+    serverId: string;
+}
+
+interface ServerIdLayoutProps {
+    params: ServerIdPageParams;
     children: React.ReactNode;
-    params: { serverId: string };
-}) => {
+}
+
+const ServerIdLayout = async ({
+    params,
+    children,
+}: ServerIdLayoutProps) => {
+    const { serverId } = params;
     const user = await getCurrentUser();
 
     if (!user) {
@@ -37,10 +44,10 @@ const ServerIdLayout = async ({
 
     return (
         <div className="h-full">
-            <div className="min-h-screen h-full w-56 fixed">
-                <ServerSideBar serverId={params.serverId}/>
+            <div className="min-h-screen h-full w-56 hidden md:block fixed">
+                <ServerSideBar serverId={serverId}/>
             </div>
-            <main className="h-full ml-56 flex justify-center items-center">
+            <main className="h-full ml-0 md:ml-56 flex">
                 {children}
             </main>
         </div>

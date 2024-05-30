@@ -17,6 +17,10 @@ export async function editChannel(serverId: string | undefined, channelId: strin
             throw new Error("Server ID or Channel ID not provided");
         }
 
+        if (channelName === "general") {
+            throw new Error("Channel name cannot be 'general'");
+        }
+
         const editedChannel = await prisma.server.update({
             where: {
                 id: serverId,

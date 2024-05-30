@@ -155,7 +155,7 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
                 {!!members?.length && (
                     <div>
                         <ServerSection label={"Members"} sectionType={"members"} server={serverData} role={role}/>
-                        <div className="space-y-1 mt-1 bg-zinc-400/30 dark:bg-zinc-500/25 p-1 rounded-lg">
+                        <div className="space-y-1 mt-1 bg-zinc-400/30 dark:bg-zinc-500/25 px-1 py-2 rounded-lg">
                             {members.map((member) => (
                                 <ServerMember key={member.id} member={member} server={serverData} />
                             ))}
