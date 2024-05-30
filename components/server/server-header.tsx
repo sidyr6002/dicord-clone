@@ -36,7 +36,7 @@ const ServerHeader = ({ server, role }: ServerHeaderProps) => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <button className="w-full px-3 h-9 focus:outline-none text-sm font-semibold capitalize flex items-center justify-between hover:bg-neutral-400/70 hover:dark:bg-stone-800/50 border-b-2 border-stone-500/50 dark:border-neutral-500/70 transition duration-150 ease-in-out">
+                <button className="w-full px-3 h-9 focus:outline-none text-sm font-semibold capitalize flex items-center justify-between hover:bg-neutral-400/70 hover:dark:bg-stone-800/50 border-b-2 border-stone-600/80 dark:border-neutral-950/50 transition duration-150 ease-in-out">
                     <span className="truncate">{server.name}</span>
                     <ChevronDown className="w-[18px] h-[18px] ml-2" />
                 </button>
