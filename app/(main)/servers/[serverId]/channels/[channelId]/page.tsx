@@ -1,9 +1,12 @@
-import ChatHeader from "@/components/chat/chat-header";
+import React from "react";
+import { redirect } from "next/navigation";
+import { redirectToSignIn } from "@clerk/nextjs";
+
 import { getCurrentUser } from "@/lib/current-user";
 import prisma from "@/lib/db";
-import { redirectToSignIn } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
-import React from "react";
+
+import ChatHeader from "@/components/chat/chat-header";
+import ChatInput from "@/components/chat/chat-input";
 
 interface ChannelIdPageParams {
     serverId: string;
@@ -45,6 +48,16 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
                 name={channel.name}
                 serverId={channel.serverId}
                 type="channel"
+            />
+            <div className="flex-grow">Messages</div>
+            <ChatInput
+                name={channel.name}
+                type="channel"
+                apiUrl="/api/socket/messages"
+                query={{
+                    channelId: channel.id,
+                    serverId: channel.serverId,
+                }}
             />
         </div>
     );

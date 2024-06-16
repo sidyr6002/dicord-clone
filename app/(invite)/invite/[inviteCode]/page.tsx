@@ -11,11 +11,13 @@ interface InviteCodePageProps {
 }
 const InviteCodePage = async ({ params }: InviteCodePageProps) => {
     const { inviteCode } = params;
+
     if (!inviteCode) {
         redirect("/");
     }
 
     const currentUser = await getCurrentUser();
+    
     if (!currentUser) {
         return redirectToSignIn();
     }
