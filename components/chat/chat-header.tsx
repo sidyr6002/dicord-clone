@@ -19,7 +19,9 @@ const ChatHeader = ({ serverId, name, type, imageURL }: ChatHeaderProps) => {
             {type === "channel" && (
                 <Hash className="w-4 h-4 text-zinc-500/90 dark:text-zinc-300/60 mr-2" />
             )}
-            {type === "conversation" && <UserAvatar src={imageURL} />}
+            {type === "conversation" && (
+                <UserAvatar src={imageURL} className="md:w-6 md:h-6 mr-2" />
+            )}
             <p className="font-semibold text-md text-stone-900 dark:text-stone-200">
                 {name}
             </p>

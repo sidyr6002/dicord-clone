@@ -40,3 +40,9 @@ export const channelFormSchema = z.object({
         }),
     channelType: z.nativeEnum(ChannelType),
 });
+
+export const messageFormSchema = z.object({
+    fileURL: z
+        .string()
+        .url({ message: "Attachment must be a valid URL" }),
+});

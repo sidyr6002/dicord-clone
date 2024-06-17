@@ -10,6 +10,7 @@ import qs from "query-string";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
 import { Plus, Smile } from "lucide-react";
 import { Input } from "../ui/input";
+import useServerStore from "@/hooks/use-server-store";
 
 interface ChatInputProps {
     apiUrl: string;
@@ -23,6 +24,7 @@ const formSchema = z.object({
 });
 
 const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
+    const { onOpen } = useServerStore();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -55,7 +57,12 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                         <FormItem>
                             <FormControl>
                                 <div className="relative p-4 pb-5">
-                                    <button className="absolute left-7 top-[26px] h-[26px] w-[26px] p-[5px] rounded-full flex items-center justify-center bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition duration-100">
+                                    <button
+                                        className="absolute left-7 top-[26px] h-[26px] w-[26px] p-[5px] rounded-full flex items-center justify-center bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition duration-100"
+                                        onClick={() =>
+                                            onOpen("messageFile", { apiUrl, query })
+                                        }
+                                    >
                                         <Plus className="w-full h-full text-stone-100 dark:text-stone-950/70" />
                                     </button>
                                     <Input

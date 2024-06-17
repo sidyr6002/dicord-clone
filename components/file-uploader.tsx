@@ -3,7 +3,7 @@ import React from "react";
 import { UploadDropzone } from "@/utils/uploadthing";
 import Image from "next/image";
 import PuffLoader from "react-spinners/PuffLoader";
-import { XCircle } from "lucide-react";
+import { File, XCircle } from "lucide-react";
 
 interface FileUploaderProps {
     onChange: (url?: string) => void;
@@ -35,7 +35,7 @@ const FileUploader = ({ onChange, value, endpoint }: FileUploaderProps) => {
                         src={value}
                         priority={true}
                         sizes="100%"
-                        alt="Server image"
+                        alt="Image File"
                         className="rounded-full"
                         onLoad={() => setImageLoading(false)}
                     />
@@ -55,6 +55,27 @@ const FileUploader = ({ onChange, value, endpoint }: FileUploaderProps) => {
                 </div>
             </div>
         );
+    }
+
+    if (value && fileType === "pdf") {
+        return (
+            <div className="flex items-center p-2 rounded-md bg-zinc-300 relative">
+                <File className="w-9 h-9 text-blue-800" />
+                <a href={value} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-900 hover:underline">{value}</a>
+                <button
+                        type="button"
+                        className="m-0 p-0 absolute top-[-5px] right-[-5px] text-stone-100"
+                        onClick={() => {
+                            onChange("");
+                        }}
+                    >
+                        <XCircle
+                            aria-label="Remove image"
+                            className="bg-stone-600 hover:bg-blue-800 border-0 rounded-full w-4 h-4 sm:w-5 sm:h-5"
+                        />
+                    </button>
+            </div>
+        )
     }
 
     return (

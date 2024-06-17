@@ -135,7 +135,7 @@ const EditServerModal = () => {
                                 </FormItem>
                             )}
                         />
-                        <DialogFooter style={{ marginTop: '24px' }} className="bg-zinc-200 rounded-b-2xl ">
+                        <DialogFooter style={{ marginTop: '24px' }} className="bg-zinc-200 rounded-b-2xl">
                             <Button
                                 size="sm"
                                 type="submit"
