@@ -4,6 +4,10 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import queryString from "query-string";
+import axios from "axios";
+import useServerStore from "@/hooks/use-server-store";
+
 import { Member, MemberRole, Profile } from "@prisma/client";
 import { messageEditSchema } from "@/schema/form-schema";
 import { Edit, File, ShieldAlert, ShieldCheck, Trash } from "lucide-react";
@@ -22,8 +26,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button }  from "@/components/ui/button"
-import queryString from "query-string";
-import axios from "axios";
+
 
 interface ChatItemProps {
     id: string;
@@ -61,7 +64,7 @@ const ChatItem = ({
     socketQuery,
 }: ChatItemProps) => {
     const [isEditing, setIsEditing] = React.useState(false);
-    const [isDeleting, setIsDeleting] = React.useState(false);
+    const { onOpen } = useServerStore();
 
     useEffect(() => {
         const handleKeydown = (event: KeyboardEvent) => {
@@ -106,6 +109,14 @@ const ChatItem = ({
         }
     }
 
+    const onMemberClick = () => {
+        if (member.id === currentMember.id) {
+            return;
+        }
+
+        window.open(`/servers/${member.serverId}/conversations/${member.id}`)
+    }
+
     useEffect(() => {
         form.reset({ message: content });
     }, [content]);
@@ -129,11 +140,8 @@ const ChatItem = ({
             <div className="group flex gap-x-2 items-start w-full">
                 <div className="cursor-pointer hover:drop-shadow-md transition">
                     <UserAvatar
-                        src={
-                            member.profile.imageURL
-                                ? member.profile.imageURL
-                                : ""
-                        }
+                        src={ member.profile.imageURL ? member.profile.imageURL : "" }
+                        onClick={onMemberClick}
                         className="md:w-7 md:h-7"
                     />
                 </div>
@@ -142,11 +150,7 @@ const ChatItem = ({
                         <div className="flex items-center gap-x-2">
                             <p
                                 className="text-sm font-medium cursor-pointer hover:underline hover:underline-offset-2"
-                                onClick={() =>
-                                    window.open(
-                                        `/servers/${member.serverId}/conversations/${member.id}`
-                                    )
-                                }
+                                onClick={onMemberClick}
                             >
                                 {member.profile.name}
                             </p>
@@ -195,8 +199,7 @@ const ChatItem = ({
                         <p
                             className={cn(
                                 "mt-1 text-sm text-zinc-600 dark:text-zinc-300/80",
-                                deleted &&
-                                    "mt-2 italic text-zinc-500 dark:text-zinc-400 text-xs line-through"
+                                deleted && "mt-2 italic text-zinc-500 dark:text-zinc-400 text-xs"
                             )}
                         >
                             {content}
@@ -247,7 +250,10 @@ const ChatItem = ({
                     {canDeleteMessage && (
                         <button
                             type="button"
-                            //onClick={() => setIsDeleting(true)}
+                            onClick={() => onOpen("deleteMessage", {
+                                apiUrl: `${socketURL}/${id}`,
+                                query: socketQuery
+                            })}
                         >
                             <ActionTooltip
                                 label="Delete Message"

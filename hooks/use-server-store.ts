@@ -22,7 +22,10 @@ const useServerStore = create<ServerStore>((set) => ({
     type: null,
     data: {},
     isOpen: false,
-    onOpen: (type, data = {}) => set({ type, data, isOpen: true }),
+    onOpen: (type, data = {}) => {
+        console.log(type, data);
+        set({ type, data, isOpen: true });
+    },
     onClose: () => set({ type: null, isOpen: false }),
 }));
 

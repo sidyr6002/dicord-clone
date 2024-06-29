@@ -32,6 +32,7 @@ const ServerSearchArea = ({ data }: ServerSearchAreaProps) => {
         };
         
         document.addEventListener("keydown", shortcutAction);
+
         return () => {
             document.removeEventListener("keydown", shortcutAction);
         };
@@ -41,11 +42,11 @@ const ServerSearchArea = ({ data }: ServerSearchAreaProps) => {
         setOpenCommand(false);
 
         if (type == "channel") {
-            router.push(`/servers/${params.serverId}/channels/${id}`);
+            router.push(`/servers/${params?.serverId}/channels/${id}`);
         }
 
         if (type === "member") {
-            router.push(`/servers/${params.serverId}/converstations/${id}`);
+            router.push(`/servers/${params?.serverId}/conversations/${id}`);
         }
     }
 

@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import queryString from "query-string";
+import axios from "axios";
 
 import useSeverStore from "@/hooks/use-server-store";
-import { deleteChannel } from "@/app/actions/channel/delete-channel";
 
 import {
     Dialog,
@@ -14,68 +14,46 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import {  CircleAlert, CircleCheck, LoaderCircle } from "lucide-react";
-import { toast } from "react-toastify";
 
 
-const DeleteChannelModal = () => {
+const DeleteMessageModal = () => {
     const { type, data, isOpen, onClose } = useSeverStore();
-    const router = useRouter();
-    const params = useParams();
 
-    const isModalOpen = isOpen && type === "deleteChannel";
-    const { server, channel } = data;
+    const isModalOpen = isOpen && type === "deleteMessage";
+    const { apiUrl, query } = data;
 
     const [loading, setLoading] = useState(false);
 
 
     const handleLeaveServer = async () => {
-        console.log("Channel Delete", server?.id, channel?.id);
+
+        if (!apiUrl) {
+            throw new Error("API URL not found");
+        }
+
         try {
             setLoading(true);
-            const res = await deleteChannel(server?.id, channel?.id);
+            const url = queryString.stringifyUrl({
+                url: apiUrl,
+                query
+            })
 
-            if (res.error) {
-                console.log(res.error);
-                toast.error(res.error, {
-                    position: "top-center",
-                    autoClose: 2000,
-                    closeButton: false,
-                    hideProgressBar: true,
-                });
-                return;
-            }
-
-            toast.success(res.data, {
-                position: "top-center",
-                autoClose: 2000,
-                closeButton: false,
-                hideProgressBar: true,
-            });
+            await axios.delete(url);
+            onClose();
         } catch (error) {
             console.error(error);
-        } finally {
-            setLoading(false);
-            onClose();
-            router.refresh();
-            router.push("/");
-            window.location.reload();
         }
     };
-
-    if (params?.serverId != server?.id) {
-        return null;
-    }
-
 
     return (
         <Dialog open={isModalOpen} onOpenChange={onClose}>
             <DialogContent className="bg-stone-100 text-stone-900 p-0 overflow-hidden" crossMount>
                 <DialogHeader className="px-6 pt-5 pb-2">
                     <DialogTitle className="text-center text-xl sm:text-2xl text-stone-900">
-                        Delete Channel
+                        Delete Message
                     </DialogTitle>
                     <DialogDescription className="text-center text-base text-rose-500/80">
-                        You can't undo this action. Are you sure you want to delete <span className="font-semibold text-blue-500">{channel?.name}</span>?
+                        You can't undo this action. Are you sure you want to delete this message?
                     </DialogDescription>
                 </DialogHeader>
                 <div className="flex space-x-2 px-6 py-3 items-center bg-zinc-200">
@@ -92,4 +70,4 @@ const DeleteChannelModal = () => {
     );
 };
 
-export default DeleteChannelModal;
+export default DeleteMessageModal;

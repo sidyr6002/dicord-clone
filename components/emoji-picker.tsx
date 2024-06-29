@@ -9,12 +9,13 @@ import { useTheme } from "next-themes";
 
 interface EmojiPickerProps {
     onChange: (value: React.SetStateAction<string>) => void
+    value: string
 }
 
-const EmojiPicker = ({ onChange }: EmojiPickerProps) => {
+const EmojiPicker = ({ onChange, value }: EmojiPickerProps) => {
     const { resolvedTheme: theme } = useTheme();
     const handleEmojiSelect = (emoji: any) => {
-        onChange((prev: string) => prev + ' ' + emoji.native);
+        onChange(value + ' ' + emoji.native.trim());
     }
 
     return (

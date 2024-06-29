@@ -88,7 +88,7 @@ const ChatInput = ({ socketURL, query, name, type }: ChatInputProps) => {
                                         {...field}
                                     />
                                     <div className="absolute group right-7 top-[26px] hover:cursor-pointer">
-                                        <EmojiPicker onChange={field.onChange} />
+                                        <EmojiPicker onChange={field.onChange} value={field.value} />
                                     </div>
                                 </div>
                             </FormControl>
