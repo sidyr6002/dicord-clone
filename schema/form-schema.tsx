@@ -46,3 +46,9 @@ export const messageFormSchema = z.object({
         .string()
         .url({ message: "Attachment must be a valid URL" }),
 });
+
+export const messageEditSchema = z.object({
+    message: z
+        .string()
+        .min(1, { message: "Message should be at least 1 character" }),
+});

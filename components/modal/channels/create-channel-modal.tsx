@@ -98,7 +98,7 @@ const CreateChannelModal = () => {
         onClose(); 
     }
 
-    if (params.serverId !== server?.id) {
+    if (params?.serverId !== server?.id) {
         return null;
     }
 

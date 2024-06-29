@@ -16,7 +16,7 @@ import EmojiPicker from "@/components/emoji-picker";
 import useServerStore from "@/hooks/use-server-store";
 
 interface ChatInputProps {
-    apiUrl: string;
+    socketURL: string;
     query: Record<string, any>;
     name: string;
     type: "channel" | "conversation";
@@ -26,7 +26,7 @@ const formSchema = z.object({
     message: z.string().min(1),
 });
 
-const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
+const ChatInput = ({ socketURL, query, name, type }: ChatInputProps) => {
     const { onOpen } = useServerStore();
     const router = useRouter();
 
@@ -43,7 +43,7 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
         console.log(data);
         try {
             const url = qs.stringifyUrl({
-                url: apiUrl,
+                url: socketURL,
                 query,
             });
 
@@ -70,7 +70,7 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                                         className="absolute left-7 top-[26px] h-[26px] w-[26px] p-[5px] rounded-full flex items-center justify-center bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition duration-100"
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            onOpen("messageFile", { apiUrl, query });
+                                            onOpen("messageFile", { apiUrl: socketURL, query });
                                         }}
                                     >
                                         <Plus className="w-full h-full text-stone-100 dark:text-stone-950/70" />
