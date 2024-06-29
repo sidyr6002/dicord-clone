@@ -1,0 +1,12 @@
+diff --git a/node_modules/@radix-ui/react-dialog/dist/index.d.mts b/node_modules/@radix-ui/react-dialog/dist/index.d.mts
+index 9273b32..bc6621f 100644
+--- a/node_modules/@radix-ui/react-dialog/dist/index.d.mts
++++ b/node_modules/@radix-ui/react-dialog/dist/index.d.mts
+@@ -48,6 +48,7 @@ export interface DialogContentProps extends DialogContentTypeProps {
+      * controlling animation with React animation libraries.
+      */
+     forceMount?: true;
++    crossMount?: boolean; // Added for optinal cross mount
+ }
+ export const DialogContent: React.ForwardRefExoticComponent<DialogContentProps & React.RefAttributes<HTMLDivElement>>;
+ interface DialogContentTypeProps extends Omit<DialogContentImplProps, 'trapFocus' | 'disableOutsidePointerEvents'> {
