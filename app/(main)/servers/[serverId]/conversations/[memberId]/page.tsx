@@ -6,6 +6,8 @@ import prisma from "@/lib/db";
 import { getCurrentUser } from "@/lib/current-user";
 import { getConversation } from "@/lib/conversations";
 import ChatHeader from "@/components/chat/chat-header";
+import ChatMessages from "@/components/chat/chat-messages";
+import ChatInput from "@/components/chat/chat-input";
 
 interface MemberConversationsPageParams {
     serverId: string;
@@ -45,6 +47,8 @@ const MemberConversationsPage = async ({
         memberId
     );
 
+    // console.log("conversation", conversation);
+
     if (!conversation) {
         return redirect(`servers/${serverId}`);
     }
@@ -57,9 +61,31 @@ const MemberConversationsPage = async ({
         <div className="h-full w-full flex flex-col">
             <ChatHeader
                 name={otherMember.profile.name}
-                imageURL={otherMember.profile.imageURL}
+                imageURL={otherMember.profile.imageURL ? otherMember.profile.imageURL : undefined}
                 serverId={serverId}
                 type="conversation"
+            />
+            <ChatMessages 
+                member = {currentMember}
+                name = {otherMember.profile.name}
+                chatId= {conversation.id}
+                apiURL="/api/direct-messages"
+                type="conversation"
+                paramKey="conversationId"
+                paramValue={conversation.id}
+                socketURL="/api/socket/direct-messages"
+                socketQuery={{
+                    conversationId: conversation.id
+                }}
+            />
+            <ChatInput 
+                socketURL="/api/socket/direct-messages"
+                query={{
+                    conversationId: conversation.id
+                }}
+                name={otherMember.profile.name}
+                type="conversation"
+
             />
         </div>
     );

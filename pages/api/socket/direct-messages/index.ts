@@ -24,48 +24,49 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseW
         }
 
         const { message: content, fileURL } = req.body;
-        const { serverId, channelId } = req.query;
+        const { conversationId } = req.query;
 
-        console.log(req.body);
+        //console.log(req.body);
 
-        if (!serverId) {
-            throw new AppError("Missing serverId", 400);
+        if (!conversationId) {
+            throw new AppError("Missing conversationId", 400);
         }
 
-        if (!channelId) {
-            throw new AppError("Missing channelId", 400);
-        }
-
-        const server = await prisma.server.findFirst({
+        const conversation = await prisma.conversation.findFirst({
             where: {
-                id: serverId as string,
-                members: {
-                    some: {
-                        profileId: currentUser.id
+                id: conversationId as string,
+                OR: [
+                    {
+                        memberOne: {
+                            profileId: currentUser.id
+                        }
+                    },
+                    {
+                        memberTwo: {
+                            profileId: currentUser.id
+                        }
                     }
-                }
+                ]
             },
             include: {
-                members: true
+                memberOne: {
+                    include: {
+                        profile: true
+                    }
+                },
+                memberTwo: {
+                    include: {
+                        profile: true
+                    }
+                }
             }
         })
 
-        if (!server) {
+        if (!conversation) {
             throw new AppError("Server not found", 404);
         }
 
-        const channel = await prisma.channel.findFirst({
-            where: {
-                id: channelId as string,
-                serverId: serverId as string,
-            }
-        })
-
-        if (!channel) {
-            throw new AppError("Channel not found", 404);
-        }
-
-        const memeber = server.members.find(member => member.profileId === currentUser.id);
+        const memeber = conversation.memberOne.profileId === currentUser.id ? conversation.memberOne : conversation.memberTwo;
 
         if (!memeber) {
             throw new AppError("User not a member of the server", 403);
@@ -75,12 +76,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseW
             throw new AppError("Missing content", 400);
         }
 
-        const message = await prisma.message.create({
+        const message = await prisma.directMessage.create({
             data: {
                 content,
                 fileURL,
                 memberId: memeber.id,
-                channelId: channel.id,
+                conversationId: conversation.id,
             },
             include: {
                 member: {
@@ -91,7 +92,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseW
             }
         })
 
-        const channelKey = `chat:${channelId}:messages`;
+        const channelKey = `chat:${conversationId}:messages`;
 
         res?.socket?.server?.io?.emit(channelKey, message); 
         
@@ -101,7 +102,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseW
         })
 
     } catch (error: any) {
-        console.log("[SOCKET_MESSAGES]", error);
+        console.log("[DIRECT_SOCKET_MESSAGES]", error);
 
         if (error instanceof AppError) {
             return res.status(error.status).json({

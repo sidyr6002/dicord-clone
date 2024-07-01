@@ -1,5 +1,6 @@
 import { getCurrentUserPages } from "@/lib/current-user-pages";
 import prisma from "@/lib/db";
+import AppError from "@/lib/error/app-error";
 import { NextApiResponseWithSocket } from "@/types";
 import { MemberRole } from "@prisma/client";
 import { NextApiRequest } from "next";
@@ -17,79 +18,61 @@ export default async function handler(
 
     try {
         const currentUser = await getCurrentUserPages(req);
-        const { messageId, serverId, channelId } = req.query;
+        const { messageId, conversationId } = req.query;
         const { message } = req.body;
 
         if (!currentUser) {
-            return res.status(401).json({
-                success: false,
-                message: "User not authenticated",
-            })
+            throw new AppError("User not authenticated", 401);
         }
 
-        if (!serverId) {
-            return res.status(400).json({
-                success: false,
-                message: "Missing serverId",
-            })
+        if (!conversationId) {
+            throw new AppError("Missing conversationId", 400);
         }
 
-        if (!channelId) {
-            return res.status(400).json({
-                success: false,
-                message: "Missing channelId",
-            })
-        }
-
-        const server = await prisma.server.findFirst({
+        const conversation = await prisma.conversation.findFirst({
             where: {
-                id: serverId as string,
-                members: {
-                    some: {
-                        profileId: currentUser.id
+                id: conversationId as string,
+                OR: [
+                    {
+                        memberOne: {
+                            profileId: currentUser.id
+                        }
+                    },
+                    {
+                        memberTwo: {
+                            profileId: currentUser.id
+                        }
                     }
-                }
+                ]
             },
             include: {
-                members: true 
+                memberOne: {
+                    include: {
+                        profile: true
+                    }
+                },
+                memberTwo: {
+                    include: {
+                        profile: true
+                    }
+                }
             }
         })
 
-
-        if (!server) {
-            return res.status(404).json({
-                success: false,
-                message: "Server not found",
-            })
+        if (!conversation) {
+            throw new AppError("Conversation not found", 404);
         }
 
-        const channel = await prisma.channel.findFirst({
-            where: {
-                id: channelId as string,
-                serverId: serverId as string
-            }
-        })
-
-        if (!channel) {
-            return res.status(404).json({
-                success: false,
-                message: "Channel not found",
-            })
-        }
-
-        const member = server.members.find(member => member.profileId === currentUser.id);
+        const member = conversation.memberOne.profileId === currentUser.id ? conversation.memberOne : conversation.memberTwo;
 
         if (!member) {
-            return res.status(403).json({
-                success: false,
-                message: "User not a member of the server",
-            })
+            throw new AppError("User not found", 404);
         }
 
-        let messageByUser = await prisma.message.findFirst({
+        let messageByUser = await prisma.directMessage.findFirst({
             where: {
                 id: messageId as string,
-                channelId: channel.id
+                conversationId: conversation.id
             },
             include: {
                 member: {
@@ -101,10 +84,7 @@ export default async function handler(
         })
 
         if (!messageByUser || messageByUser.deleted) {
-            return res.status(404).json({
-                success: false,
-                message: "Message not found or deleted",
-            })
+            throw new AppError("Message not found", 404);
         }
 
         const isMessageOwner = messageByUser.memberId === member.id;
@@ -121,7 +101,7 @@ export default async function handler(
                 })
             }
 
-            messageByUser = await prisma.message.update({
+            messageByUser = await prisma.directMessage.update({
                 where: {
                     id: messageId as string
                 },
@@ -150,7 +130,7 @@ export default async function handler(
                 })
             } 
 
-            messageByUser = await prisma.message.update({
+            messageByUser = await prisma.directMessage.update({
                 where: {
                     id: messageId as string
                 },
@@ -167,7 +147,7 @@ export default async function handler(
             })
         }
 
-        const updatedKey = `chat:${channelId}:messages:update`;
+        const updatedKey = `chat:${conversationId}:messages:update`;
 
         res.socket.server.io.emit(updatedKey, messageByUser);
 

@@ -1,4 +1,4 @@
-import { Message } from "@prisma/client";
+import { DirectMessage } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 import { getCurrentUser } from "@/lib/current-user";
@@ -12,27 +12,29 @@ export async function GET(req: Request) {
         const { searchParams } = new URL(req.url);
 
         const cursor = searchParams.get("cursor");
-        const channelId = searchParams.get("channelId");
+        const conversationId = searchParams.get("conversationId");
+
+        // console.log("ConversationId", conversationId)
 
         if (!currentUser) {
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
-        if (!channelId) {
-            return new NextResponse("Missing channelId", { status: 400 });
+        if (!conversationId) {
+            return new NextResponse("Missing conversationId", { status: 400 });
         }
 
-        let messages: Message[] = [];
+        let messages: DirectMessage[] = [];
 
         if (cursor) {
-            messages = await prisma.message.findMany({
+            messages = await prisma.directMessage.findMany({
                 take: MESSAGE_BATCH,
                 skip: 1,
                 cursor: {
                     id: cursor
                 },
                 where: {
-                    channelId
+                    conversationId
                 },
                 include: {
                     member: {
@@ -46,10 +48,10 @@ export async function GET(req: Request) {
                 }
             })
         } else {
-            messages = await prisma.message.findMany({
+            messages = await prisma.directMessage.findMany({
                 take: MESSAGE_BATCH,
                 where: {
-                    channelId
+                    conversationId
                 },
                 include: {
                     member: {
@@ -76,7 +78,7 @@ export async function GET(req: Request) {
         })
 
     } catch (error) {
-        console.log("[MESSAGES_GET]", error);
+        console.log("[DiRECT_MESSAGES_GET]", error);
         return new NextResponse("Internal Server Error", { status: 500 });
     }
 }
