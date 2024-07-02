@@ -43,7 +43,7 @@ const InitialServerModal = () => {
 
     useEffect(() => {
         setOpen(true);
-    });
+    }, []);
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {

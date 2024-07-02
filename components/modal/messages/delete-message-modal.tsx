@@ -53,7 +53,7 @@ const DeleteMessageModal = () => {
                         Delete Message
                     </DialogTitle>
                     <DialogDescription className="text-center text-base text-rose-500/80">
-                        You can't undo this action. Are you sure you want to delete this message?
+                        You can&apos;t undo this action. Are you sure you want to delete this message?
                     </DialogDescription>
                 </DialogHeader>
                 <div className="flex space-x-2 px-6 py-3 items-center bg-zinc-200">

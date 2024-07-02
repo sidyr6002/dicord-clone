@@ -24,8 +24,8 @@ const NavigationItem = ({ server }: NavigationItemProps) => {
                         <div
                             className={cn(
                                 "absolute left-0 w-[4px] rounded-r-full bg-stone-950 dark:bg-stone-100 transition-all ease-in duration-150",
-                                params.serverId === server.id ? "bg-blue-600 dark:bg-blue-600 h-[36px]" : "h-[18px]",
-                                params.serverId !== server.id && "group-hover:h-[27px]"
+                                params?.serverId === server.id ? "bg-blue-600 dark:bg-blue-600 h-[36px]" : "h-[18px]",
+                                params?.serverId !== server.id && "group-hover:h-[27px]"
                             )}
                         />
                         <Image
@@ -35,8 +35,8 @@ const NavigationItem = ({ server }: NavigationItemProps) => {
                             height={48}
                             className={cn(
                                 "w-11 h-11 rounded-full transition-all duration-150",
-                                params.serverId !== server.id && "group-hover:rounded-2xl group-hover:border-2 group-hover:border-blue-600",
-                                params.serverId === server.id && "rounded-2xl"
+                                params?.serverId !== server.id && "group-hover:rounded-2xl group-hover:border-2 group-hover:border-blue-600",
+                                params?.serverId === server.id && "rounded-2xl"
                             )}
                         />
                     </button>

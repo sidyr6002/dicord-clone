@@ -60,7 +60,7 @@ const CreateChannelModal = () => {
         if(channelType) {
             form.setValue("channelType", channelType);
         }
-    }, [channelType])
+    }, [form, channelType])
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {

@@ -70,7 +70,7 @@ const DeleteServerModal = () => {
                         Delete Server
                     </DialogTitle>
                     <DialogDescription className="text-center text-base text-rose-500/80">
-                        You can't undo this action. Are you sure you want to delete <span className="font-semibold text-blue-500">{server?.name}</span>?
+                        You can&apos;t undo this action. Are you sure you want to delete <span className="font-semibold text-blue-500">{server?.name}</span>?
                     </DialogDescription>
                 </DialogHeader>
                 <div className="flex space-x-2 px-6 py-3 items-center bg-zinc-200">

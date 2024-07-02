@@ -119,7 +119,7 @@ const ChatItem = ({
 
     useEffect(() => {
         form.reset({ message: content });
-    }, [content]);
+    }, [form, content]);
 
 
 	const isAdmin = currentMember.role === MemberRole.ADMIN;

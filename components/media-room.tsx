@@ -55,8 +55,9 @@ const MediaRoom = ({ chatId, audio, video }: MediaRoomProps) => {
             serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
             // Use the default LiveKit theme for nice styles.
             data-lk-theme="default"
+            style={{ width: "100%", height: "50%", flex: 1 }}
         >
-            <VideoConference />
+            <VideoConference style={{ width: "100%", height: "100%" }} />
         </LiveKitRoom>
     );
 };
