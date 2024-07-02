@@ -37,11 +37,7 @@ export const useChatQuery = ({ apiURL, queryKey, paramKey, paramValue }: ChatQue
         queryFn: fetchMessages,
         initialPageParam: undefined,
         getNextPageParam: (lastPage, pages) => lastPage?.nextCursor,
-<<<<<<< HEAD
-        refetchInterval: 100
-=======
         refetchInterval: isConnected ? false : 1000
->>>>>>> parent of beedc1c (bug fix)
     })
 
     //console.log("data", data);
