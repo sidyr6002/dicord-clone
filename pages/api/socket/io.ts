@@ -1,4 +1,3 @@
-import { PORT } from "@/config/app";
 import type { Server as HTTPServer } from "http";
 import { Server as ServerIO } from "socket.io";
 import type { NextApiRequest } from "next";
@@ -25,8 +24,6 @@ const socketIOHandler = (
 
     const path = "/api/socket/io";
     const httpServer: HTTPServer = res.socket.server;
-
-    console.log("Starting Socket.IO server on port:", PORT + 1);
 
     const io = new ServerIO(httpServer, {
         path,

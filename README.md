@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Discord Clone
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This project is a clone of the popular communication platform Discord. Built using Next.js and React, it incorporates a variety of technologies to deliver a seamless, real-time communication experience. The application features text, audio, and video chat capabilities, member management, and a beautiful, responsive UI.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Real-time messaging using Socket.io**
+- **Send attachments as messages using UploadThing**
+- **Delete & Edit messages in real-time for all users**
+- **Create Text, Audio, and Video call Channels**
+- **1:1 conversation between members**
+- **1:1 video calls between members using LiveKit**
+- **Member management (Kick, Role change Guest / Moderator)**
+- **Unique invite link generation & full working invite system**
+- **Infinite loading for messages in batches of 10 (using Tanstack/Query)**
+- **Server creation and customization**
+- **Beautiful UI using TailwindCSS and ShadcnUI**
+- **Full responsivity and mobile UI**
+- **Light / Dark mode**
+- **WebSocket fallback: Polling with alerts**
+- **ORM using Prisma**
+- **MySQL database using Planetscale**
+- **Authentication with Clerk**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Technologies Used
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Next.js, React, Socket.io, Prisma, TailwindCSS, ShadcnUI, PostgreSQL, LiveKit, Clerk, UploadThing, Tanstack/Query, Planetscale
 
-## Learn More
+## Installation
 
-To learn more about Next.js, take a look at the following resources:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/sidyr6002/dicord-clone.git
+   cd discord-clone
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Install the dependencies:
+   ```bash
+   npm install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+3. Set up environment variables:
+   Create a `.env.local` file in the root directory and add the following environment variables:
+   ```env
+   NEXT_PUBLIC_CLERK_FRONTEND_API=<your-clerk-frontend-api>
+   CLERK_API_KEY=<your-clerk-api-key>
 
-## Deploy on Vercel
+   DATABASE_URL=<your-database-url>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   UPLOADTHING_SECRET=<your-uploadthing-secret>
+   UPLOADTHING_APP_ID=<yout-uploadthing-appid>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+   LIVEKIT_API_KEY=<your-livekit-api-key>
+   LIVEKIT_API_SECRET=<your-livekit-api-secret>
+   NEXT_PUBLIC_LIVEKIT_URL=<your-livekit-public-url>
+   ```
+
+4. Run database migrations:
+   ```bash
+   npx prisma migrate dev
+   ```
+
+5. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+6. Open your browser and navigate to `http://localhost:3000`.
+
+## Usage
+
+- **Creating an Account**: Sign up using Clerk authentication.
+- **Server Creation**: Create and customize your servers.
+- **Channel Creation** : Create and manage your channels. Add any channel of type text, audio and video
+- **Messaging**: Send and receive real-time messages. Over a channel and also one-on-one
+- **Voice and Video Calls**: Initiate and participate in audio and video calls.
+- **Manage Members**: Add, kick, or change member roles.
+- **Invite System**: Generate unique invite links for your server.
+- **Edit/Delete Messages**: Edit or delete messages in real-time.
+
+## Contributing
+
+1. Fork the repository.
+2. Create a new branch:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+3. Make your changes and commit them:
+   ```bash
+   git commit -m 'Add some feature'
+   ```
+4. Push to the branch:
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+5. Create a new Pull Request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Acknowledgements
+
+- [Next.js](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [Socket.io](https://socket.io/)
+- [Prisma](https://www.prisma.io/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [ShadcnUI](https://shadcn.dev/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [LiveKit](https://livekit.io/)
+- [Clerk](https://clerk.dev/)
+- [UploadThing](https://uploadthing.com/)
+- [Tanstack/Query](https://tanstack.com/query)
+- [Planetscale](https://planetscale.com/)

@@ -1,7 +1,5 @@
 "use client";
 
-import { PORT } from "@/config/app";
-import { trace } from "console";
 import { createContext, useContext, useEffect, useState } from "react";
 import { io as ClientIO } from "socket.io-client";
 
