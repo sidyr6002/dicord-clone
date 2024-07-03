@@ -1,5 +1,7 @@
 "use client";
 
+import { PORT } from "@/config/app";
+import { trace } from "console";
 import { createContext, useContext, useEffect, useState } from "react";
 import { io as ClientIO } from "socket.io-client";
 
@@ -23,7 +25,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
         const socketInstace = new (ClientIO as any)(
-            process.env.NEXT_PUBLIC_SOCKET_URL!,
+            process.env.NEXT_PUBLIC_API_URL!,
             {
                 path: "/api/socket/io",
                 addTrailingSlash: false,
@@ -31,16 +33,24 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
         );
 
         socketInstace.on("connect", () => {
+            console.log("Socket connected");
             setIsConnected(true);
         });
 
         socketInstace.on("disconnect", () => {
+            console.log("Socket disconnected");
             setIsConnected(false);
+        });
+
+        socketInstace.on("connect_error", async (err: any) => {
+            console.log("Socket error", err);
+            //await fetch("/api/socket/io");
         });
 
         setSocket(socketInstace);
 
         return () => {
+            console.log("Socket disconnecting....");
             socketInstace.disconnect();
         };
     }, []);
