@@ -26,7 +26,7 @@ This project is a clone of the popular communication platform Discord. Built usi
 
 ## Technologies Used
 
-Next.js, React, Socket.io, Prisma, TailwindCSS, ShadcnUI, PostgreSQL, LiveKit, Clerk, UploadThing, Tanstack/Query, Planetscale
+Next.js, React, Socket.io, Prisma, TailwindCSS, ShadcnUI, PostgreSQL, LiveKit, Clerk, UploadThing, Tanstack/Query
 
 ## Installation
 
@@ -114,4 +114,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - [Clerk](https://clerk.dev/)
 - [UploadThing](https://uploadthing.com/)
 - [Tanstack/Query](https://tanstack.com/query)
-- [Planetscale](https://planetscale.com/)
